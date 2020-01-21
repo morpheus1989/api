@@ -1,21 +1,13 @@
 from flask_script import Manager
 from api import app
-from models import User,db
-from db_script import db_manager
+from exts import db
+from flask_migrate import Migrate,MigrateCommand
+
 manager=Manager(app)
-manager.add_command('db',db_manager)
-
-@manager.command
-def greet():
-    return 'hey'
-
-@manager.option('-n','--name',dest='name')
-def add_user(name):
-    pass
-    user=User(name=name)
-    db.session.add(user)
-    db.session.commit()
-    print('添加成功')
+# 绑定app和数据库
+Migrate(app,db)
+# 添加migrate所有的子命令绑定到db下
+manager.add_command('db',MigrateCommand)
 
 if __name__ == '__main__':
     manager.run()
