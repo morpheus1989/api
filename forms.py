@@ -1,4 +1,4 @@
-from wtforms import Form,StringField,IntegerField,ValidationError
+from wtforms import Form,StringField,IntegerField,ValidationError,BooleanField
 from wtforms.validators import Length,EqualTo,Email,InputRequired,NumberRange,Regexp,URL,UUID
 
 class RegistForm(Form):
@@ -17,3 +17,5 @@ class RegistForm(Form):
 class SettingForm(Form):
     # 第一个参数用来指定label
     user=StringField('用户名：',validators=[IntegerField()])
+    # 用户勾选，不需要验证
+    remember=BooleanField('记住我：')
