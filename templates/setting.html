@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>注册用户</title>
+    <style>
+        .user{background-color: red}
+    </style>
 </head>
 <body>
 {# action为空，默认使用当前的url#}
@@ -11,7 +14,12 @@
         <tbody>
         <tr>
             <td>{{ form.user.label }}</td>
-            <td>{{ form.user() }}</td>
+            {# 通过class参数可以指定样式 #}
+            <td>{{ form.user(class='user') }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.tags.label }}</td>
+            <td>{{ form.tags() }}</td>
         </tr>
         <tr>
             <td>{{ form.remember.label }}</td>
