@@ -11,6 +11,7 @@ def greet():
 
 @manager.option('-n','--name',dest='name')
 def add_user(name):
+    pass
     user=User(name=name)
     db.session.add(user)
     db.session.commit()
