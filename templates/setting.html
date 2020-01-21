@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册用户</title>
+</head>
+<body>
+{# action为空，默认使用当前的url#}
+<form action="" method="post">
+    <table>
+        <tbody>
+        <tr>
+            <td>{{ form.user.label }}</td>
+            <td>{{ form.user() }}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="提交"></td>
+        </tr>
+
+        </tbody>
+    </table>
+
+</form>
+</body>
+</html>

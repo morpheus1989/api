@@ -1,14 +1,5 @@
 from flask import Flask,request,render_template
-from wtforms import Form,StringField
-from wtforms.validators import Length,EqualTo
-
-class RegistForm(Form):
-    # 导入验证器/处理条件,铲除一坨垃圾代码
-    # Length注意使用关键字传参，避免导致At least one of `min` or `max` must be specified
-    # validators接收验证列表
-    user=StringField(validators=[Length(min=3,max=10,message='长度必须介于3-10之间')])
-    password=StringField(validators=[Length(min=6,max=10)])
-    password_repeat=StringField(validators=[Length(min=6,max=10),EqualTo('password',message='两次密码不一致')])
+from forms import RegistForm,SettingForm
 
 app = Flask(__name__)
 
@@ -30,6 +21,15 @@ def regist():
             error_msg=form.errors
             print(error_msg)
             return '；'.join(error_msg)
+
+@app.route('/setting/',methods=['POST','GET'])
+def setting():
+    if request.method=='GET':
+        # 将表单渲染到前端，自动生成input代码
+        form=SettingForm()
+        return render_template('setting.html',form=form)
+    else:
+        return 'ok'
 
 if __name__ == '__main__':
     app.run(debug=True)
