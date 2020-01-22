@@ -1,5 +1,10 @@
-from flask import Flask,request,render_template
-from forms import RegistForm,SettingForm
+import re
+
+from flask import Flask,request,render_template,send_from_directory
+from werkzeug.utils import secure_filename
+
+import os
+UPLOAD_PATH=os.path.join(os.path.dirname(__file__),'static/images')
 
 app = Flask(__name__)
 
@@ -7,29 +12,30 @@ app = Flask(__name__)
 def hello_world():
     return 'you gey Hello World!'
 
-@app.route('/regist/',methods=['POST','GET'])
-def regist():
+@app.route('/upload/',methods=['POST','GET'])
+def upload():
     if request.method=='GET':
-        return render_template('regist.html')
+        return render_template('upload.html')
     else:
-        form=RegistForm(request.form)
-        # 使用validate查看验证结果
-        if form.validate():
-            return 'ok'
+        desc=request.form.get('desc')
+        avatar=request.files.get('avatar')
+        # 网络，安全隐患无处不在
+        # 对于文件名做安全检测，以防黑客攻击；linux ../../User/.bashrc，直接覆盖就哭鼻子了
+        # 对中文文件名支持的不好，会直接剔除掉，可以自行处理
+        origin_name=avatar.filename
+        # 处理的小demo
+        if re.match('[a-z]',origin_name):
+            filename=secure_filename(origin_name)
         else:
-            # 使用errors查看错误信息，{'user': ['长度必须介于3-10之间']}
-            error_msg=form.errors
-            print(error_msg)
-            return '；'.join(error_msg)
+            filename=origin_name
+        avatar.save(os.path.join(UPLOAD_PATH,filename))
+        return desc
 
-@app.route('/setting/',methods=['POST','GET'])
-def setting():
-    if request.method=='GET':
-        # 将表单渲染到前端，自动生成input代码
-        form=SettingForm()
-        return render_template('setting.html',form=form)
-    else:
-        return 'ok'
+# 下载/获取图片
+@app.route('/download/<filename>/')
+def download(filename):
+    return send_from_directory(UPLOAD_PATH,filename)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
