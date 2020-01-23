@@ -1,20 +1,13 @@
-from flask_script import Manager
-from api import app
-from models import User,db
-from db_script import db_manager
+
+from  flask_script import Manager
+from ICBC import app
+from exts import db
+from models import User
+from flask_migrate import Migrate,MigrateCommand
+
 manager=Manager(app)
-manager.add_command('db',db_manager)
-
-@manager.command
-def greet():
-    return 'hey'
-
-@manager.option('-n','--name',dest='name')
-def add_user(name):
-    user=User(name=name)
-    db.session.add(user)
-    db.session.commit()
-    print('添加成功')
+Migrate(app,db)
+manager.add_command('db',MigrateCommand)
 
 if __name__ == '__main__':
     manager.run()
