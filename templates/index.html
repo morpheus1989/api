@@ -12,6 +12,7 @@
 
 {#iframe 在一个网页中加载另外一个网页/嵌入，形成子页面#}
 {#通过宽高为0来隐藏iframe#}
+{#js是无法操作其他域名下面的cookie的，浏览器级别的限制#}
 <iframe width="0"  height="0" src="{{ url_for("transfer") }}" frameborder="0"></iframe>
 
 </body>
