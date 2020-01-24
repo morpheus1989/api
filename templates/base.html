@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {#推荐使用meta标签来传递csrf_token，模版继承就可以统一处理了#}
+    {# 注意name属性不是下划线；content是下划线 #}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="{{ url_for("static",filename='csrf.js') }}"></script>
+    <title>Title</title>
+    {% block head %}
+
+    {% endblock %}
+</head>
+<body>
+<nav>导航条</nav>
+{% block body %}
+
+{% endblock %}
+<footer>底部栏</footer>
+</body>
+</html>
