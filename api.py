@@ -4,8 +4,8 @@ app = Flask(__name__)
 app.config.from_object(config)
 
 @app.route('/')
-def hello_world():
-    return 'you gey Hello World!'
+def hello():
+    return 'Hello World!'
 
 
 if __name__ == '__main__':
