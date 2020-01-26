@@ -1,24 +1,14 @@
 from flask import Flask
 import config
 from exts import db
-from models import User,Article,Tag
-from flask_restful import Api,Resource,fields
+from articleviews import article_bp
+
 app = Flask(__name__)
 app.config.from_object(config)
 db.init_app(app)
-api=Api(app)
+app.register_blueprint(article_bp)
+# api=Api(app)
 
-
-class ArticleView(Resource):
-
-    resource_fields={
-        'title':fields.String}
-
-    def get(self,article_id):
-        article=Article.query.get(article_id)
-        return article
-
-api.add_resource(ArticleView,'/article/<article_id>/',endpoint='article')
 
 @app.route('/')
 def index():
